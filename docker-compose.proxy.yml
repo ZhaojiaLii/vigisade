@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+    # front web+php
+    php:
+        environment:
+            VIRTUAL_HOST: $PROXY_VIRTUAL_HOST
+            #HTTPS_METHOD: redirect
+            DOCKER_COMPOSE_PATH: $PROJECT_PATH
+            #DOCKER_COMPOSE_SERVICE: db php
+        networks:
+            default:
+            proxy:
+
+networks:
+    proxy:
+        external:
+            name: proxy_default
+
+# vim: ts=2 sts=2 sw=2 et:

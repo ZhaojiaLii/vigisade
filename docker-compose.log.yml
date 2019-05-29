@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+    php:
+        logging:
+            driver: gelf
+            options:
+                gelf-address: "udp://$GELF_IP:12201"
+                tag: $PROXY_VIRTUAL_HOST
+
+    db:
+        logging:
+            driver: gelf
+            options:
+                gelf-address: "udp://$GELF_IP:12201"
+                tag: $PROXY_VIRTUAL_HOST
+
+# vim: ts=2 sts=2 sw=2 et:

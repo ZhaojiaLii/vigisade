@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+    # front web+php
+    php:
+        ports:
+            - $IP:80:80
+            - $IP:443:443
+
+    # database
+    db:
+        ports:
+            - $IP:3306:3306
+
+# vim: ts=2 sts=2 sw=2 et:

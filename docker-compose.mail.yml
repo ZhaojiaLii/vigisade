@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+
+    php:
+        environment:
+            SMTP_HOST: mail
+            SMTP_PORT: 25
+        networks:
+            default:
+            mail:
+
+networks:
+    mail:
+        external:
+            name: mail_default
+
+# vim: ts=2 sts=2 sw=2 et:

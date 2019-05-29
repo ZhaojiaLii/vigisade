@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+    # Apache + PHP.
+    php:
+        image: docker.brocelia.net/php:7.3
+        environment:
+            XDEBUG: $XDEBUG
+            WWW_UID: $USER_ID
+            WWW_GID: $GROUP_ID
+            WWW_HOME: $USER_HOME
+            WWW_DOCROOT: $PROJECT_PATH/vigisade-web/public
+        volumes:
+            - $USER_HOME/.ssh:/root/.ssh:ro
+            - $USER_HOME/.ssh:/var/web/.ssh
+            - $USER_HOME/.ssh:$USER_HOME/.ssh
+            - $USER_HOME/.composer:$USER_HOME/.composer
+            - $PROJECT_PATH:$PROJECT_PATH
+        working_dir: $PWD
+
+    # Database.
+    db:
+        image: mariadb:10.3.9
+        environment:
+            TERM: dumb
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+            MYSQL_ROOT_PASSWORD: ''
+        volumes:
+            - mysql:/var/lib/mysql
+
+volumes:
+    mysql:
+
+networks:
+    default:
+        ipam:
+            config:
+                - subnet: $SUBNET
+
+# vim: ts=2 sts=2 sw=2 et:
