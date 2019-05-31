@@ -31,6 +31,9 @@ init-db:
 .env: $(INIT_ENV)
 	$(INIT_ENV)
 
+.PHONY: init-host
+init-host:
+	echo 127.0.24.1 www-dev.vigisade.com | sudo tee -a /etc/hosts
 
 ### Git
 
