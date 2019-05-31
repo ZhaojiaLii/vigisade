@@ -15,7 +15,7 @@ usage:
 ### Init
 
 .PHONY: init
-init: git-clone docker-pull
+init: git-clone docker-pull docker-up
 
 .PHONY: init-web
 init-web: init-packages init-db
@@ -36,6 +36,9 @@ init-host:
 	echo 127.0.24.1 www-dev.vigisade.com | sudo tee -a /etc/hosts
 
 ### Git
+
+.PHONY: update
+update: git-pull init-packages
 
 .PHONY: git-pull
 git-pull:
