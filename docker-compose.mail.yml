@@ -6,6 +6,9 @@ services:
     environment:
       SMTP_HOST: mail.$MAIL_NETWORK_NAME
       SMTP_PORT: 25
+
+      MAILER_URL: smtp://mail.$MAIL_NETWORK_NAME:25
+
     networks:
       default:
       mail:
