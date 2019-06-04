@@ -116,16 +116,27 @@ docker-restart: docker-prepare
 stop: docker-stop
 
 .PHONY: docker-stop
-docker-stop:
+docker-stop: docker-prepare
 	docker-compose stop
+
+.PHONY: docker-clean-containers
+docker-clean-containers: docker-prepare
+	docker rm -f -v $$(docker ps -qa -f name=^$(COMPOSE_PROJECT_NAME)_) || true
+
+.PHONY: docker-clean-volumes
+docker-clean-volumes: docker-prepare
+	docker volume rm $$(docker volume ls -q -f name=^$(COMPOSE_PROJECT_NAME)_) || true
+
+.PHONY: docker-clean-all-but-net
+docker-clean-all-but-net: docker-clean-containers docker-clean-volumes
 
 .PHONY: docker-clean
 docker-clean: docker-prepare
-	docker-compose down --remove-orphans
+	docker-compose down --remove-orphans || true
 
 .PHONY: docker-clean-all
 docker-clean-all: docker-prepare
-	docker-compose down -v --remove-orphans
+	docker-compose down -v --remove-orphans || true
 
 .PHONY: logs
 logs: docker-logs
