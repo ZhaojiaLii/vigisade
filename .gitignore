@@ -1,3 +1,4 @@
 /vigisade-*
 docker-compose.override.yml
 .idea/
+/.env

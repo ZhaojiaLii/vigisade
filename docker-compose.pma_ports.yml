@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+
+  # phpMyAdmin
+  pma:
+    ports:
+      - $IP:88:80

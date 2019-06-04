@@ -1,0 +1,12 @@
+version: '2.4'
+
+services:
+
+  # phpMyAdmin
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOSTS: db
+      PMA_USER: root
+    volumes:
+      - .docker/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro

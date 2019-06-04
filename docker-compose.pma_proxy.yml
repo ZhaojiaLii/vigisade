@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+
+  # phpMyAdmin
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      VIRTUAL_HOST: pma-${COMPOSE_PROJECT_NAME}${PROXY_VIRTUAL_HOST_SUFFIX}
+      DOCKER_COMPOSE_PATH: $PROJECT_PATH
+    networks:
+      default:
+      proxy:
+
+networks:
+  proxy:
+    external:
+      name: proxy_default

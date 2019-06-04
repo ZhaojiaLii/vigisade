@@ -1,11 +1,9 @@
-INIT_ENV=.docker/init-env.sh
-INIT=.docker/init.sh
-EXPORT_DUMP=.bin/export-dump.sh
-PHP=.bin/php -T
-COMPOSER=.bin/composer -T --ansi
+PREPARE=.docker/prepare.sh
+DOCKER_UP_ONLY_RUNNING=$(HOME)/dev/docker/bin/docker-compose_up_only-running.sh
+MYSQL=.bin/mysql
+COMPOSER=.bin/composer
 
-
-### Makefile
+-include .env
 
 .PHONY: usage
 usage:
@@ -28,12 +26,31 @@ init-packages:
 init-db:
 	cd vigisade-web && make init-db
 
-.env: $(INIT_ENV)
-	$(INIT_ENV)
+.PHONY: db-wait
+db-wait: docker-up
+	.docker/exec.sh -T php dockerize -wait tcp://db:3306 -timeout 60s
+
+
+.env : $(PREPARE)
+	$(PREPARE)
+
+.PHONY: docker-prepare
+docker-prepare:
+	$(PREPARE)
+
+.PHONY: %-on
+%-on:
+	$(PREPARE) + $(*F)
+
+.PHONY: %-off
+%-off:
+	$(PREPARE) - $(*F)
+
 
 .PHONY: init-host
 init-host:
 	echo 127.0.24.1 www-dev.vigisade.com | sudo tee -a /etc/hosts
+
 
 ### Git
 
@@ -53,43 +70,69 @@ git-clone:
 	rm -rf vigisade-*
 	git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git
 
+
 ### Docker
 
-.PHONY : docker-update
-docker-update : docker-pull docker-up
-
-.PHONY : docker-pull
-docker-pull : .env
-	docker-compose pull
-
-.PHONY : up
-up : docker-up
-
-.PHONY : stop
-stop : docker-stop
-
-.PHONY : docker-up
-docker-up : docker-prepare
-	docker-compose up -d --remove-orphans
-
-.PHONY : docker-up-force
-docker-up-force : docker-prepare
-	docker-compose up -d --remove-orphans --force-recreate
-
-.PHONY : docker-stop
-docker-stop :
-	docker-compose stop
-
-.PHONY : docker-clean-all
-docker-clean-all : .env
-	docker-compose down --remove-orphans -v
-
-.PHONY : docker-prepare
-docker-prepare : .env
+.PHONY: docker-update
+docker-update: docker-pull docker-up
 
 .PHONY: docker-pull
 docker-pull: docker-prepare
 	docker-compose pull
+
+.PHONY: up
+up: docker-up
+
+.PHONY: docker-up
+docker-up: docker-prepare
+	docker-compose up -d --remove-orphans
+
+.PHONY: docker-up-force
+docker-up-force: docker-prepare
+	docker-compose up -d --remove-orphans --force-recreate
+
+.PHONY: up-or
+up-or: docker-up-only-running
+
+.PHONY: docker-up-only-running
+docker-up-only-running:
+	$(DOCKER_UP_ONLY_RUNNING)
+
+.PHONY: ps
+ps: docker-ps
+
+.PHONY: docker-ps
+docker-ps: docker-prepare
+	docker-compose ps
+
+.PHONY: restart
+restart: docker-restart
+
+.PHONY: docker-restart
+docker-restart: docker-prepare
+	docker-compose restart
+
+.PHONY: stop
+stop: docker-stop
+
+.PHONY: docker-stop
+docker-stop:
+	docker-compose stop
+
+.PHONY: docker-clean
+docker-clean: docker-prepare
+	docker-compose down --remove-orphans
+
+.PHONY: docker-clean-all
+docker-clean-all: docker-prepare
+	docker-compose down -v --remove-orphans
+
+.PHONY: logs
+logs: docker-logs
+
+.PHONY: docker-logs
+docker-logs: docker-up
+	docker-compose logs -f --tail=0
 
 .PHONY : clean-all
 clean-all : docker-clean-all clean-conf clean-libs

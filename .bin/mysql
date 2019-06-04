@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+SERVICE=db
+COMMAND=${COMMAND:-mysql}
+
+set -e
+
+OPTIONS=
+for p in "$@"; do
+    if [ "$p" = "-T" -o "$p" = "-I" ]; then
+        OPTIONS="$OPTIONS $p"
+        shift
+    else
+        break
+    fi
+done
+
+if [ -f "/.dockerenv" ]; then
+    exec "$COMMAND" "$@"
+fi
+
+exec $(dirname $0)/../.docker/exec.sh $OPTIONS "$SERVICE" "$COMMAND" "$@"

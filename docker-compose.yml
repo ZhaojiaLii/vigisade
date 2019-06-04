@@ -1,40 +1,44 @@
-version: '2'
+version: '2.4'
 
 services:
-    # Apache + PHP.
-    php:
-        image: docker.brocelia.net/php:7.3
-        environment:
-            XDEBUG: $XDEBUG
-            WWW_UID: $USER_ID
-            WWW_GID: $GROUP_ID
-            WWW_HOME: $USER_HOME
-            WWW_DOCROOT: $PROJECT_PATH/vigisade-web/public
-        volumes:
-            - $USER_HOME/.ssh:/root/.ssh:ro
-            - $USER_HOME/.ssh:/var/web/.ssh
-            - $USER_HOME/.ssh:$USER_HOME/.ssh
-            - $USER_HOME/.composer:$USER_HOME/.composer
-            - $PROJECT_PATH:$PROJECT_PATH
-        working_dir: $PWD
 
-    # Database.
-    db:
-        image: mariadb:10.3.9
-        environment:
-            TERM: dumb
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-            MYSQL_ROOT_PASSWORD: ''
-        volumes:
-            - mysql:/var/lib/mysql
+  # Apache + PHP.
+  php:
+    image: $IMAGE_WEB_PHP
+    environment:
+      WWW_UID: $USER_ID
+      WWW_GID: $GROUP_ID
+      WWW_HOME: $USER_HOME
+      WWW_DOCROOT: $PROJECT_PATH/vigisade-web/public
+    volumes:
+      - $USER_HOME/.ssh:/root/.ssh:ro
+      - $USER_HOME/.ssh:/var/web/.ssh
+      - $USER_HOME/.ssh:$USER_HOME/.ssh
+      - $USER_HOME/.composer:$USER_HOME/.composer
+      - $PROJECT_PATH/vigisade-web:$PROJECT_PATH/vigisade-web
+    working_dir: $PROJECT_PATH/vigisade-web
+
+  # Database.
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_ROOT_PASSWORD: ''
+
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PWD
+
+    volumes:
+      - mysql:/var/lib/mysql
 
 volumes:
-    mysql:
+  mysql:
 
 networks:
-    default:
-        ipam:
-            config:
-                - subnet: $SUBNET
+  default:
+    ipam:
+      config:
+        - subnet: ${SUBNET_DEFAULT}
 
 # vim: ts=2 sts=2 sw=2 et:
