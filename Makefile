@@ -16,20 +16,14 @@ usage:
 init: git-clone docker-pull docker-up
 
 .PHONY: init-web
-init-web: init-web-packages init-web-db
-
-.PHONY: init-web-packages
-init-web-packages:
-	cd vigisade-web && make composer-install
-
-.PHONY: init-web-db
-init-web-db:
-	cd vigisade-web && make init-db
+init-web: clean-all db-wait
+	cd vigisade-web && make packages-init
+	cd vigisade-web && make assets-init
+	cd vigisade-web && make db-init
 
 .PHONY: db-wait
 db-wait: docker-up
 	.docker/exec.sh -T php dockerize -wait tcp://db:3306 -timeout 60s
-
 
 .env : $(PREPARE)
 	$(PREPARE)
@@ -147,4 +141,4 @@ docker-logs: docker-up
 	docker-compose logs -f --tail=0
 
 .PHONY : clean-all
-clean-all : docker-clean-all clean-conf clean-libs
+clean-all : docker-clean-all
