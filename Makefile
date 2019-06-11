@@ -16,14 +16,14 @@ usage:
 init: git-clone docker-pull docker-up
 
 .PHONY: init-web
-init-web: init-packages init-db
+init-web: init-web-packages init-web-db
 
-.PHONY: init-packages
-init-packages:
+.PHONY: init-web-packages
+init-web-packages:
 	cd vigisade-web && make composer-install
 
-.PHONY: init-db
-init-db:
+.PHONY: init-web-db
+init-web-db:
 	cd vigisade-web && make init-db
 
 .PHONY: db-wait
@@ -55,7 +55,7 @@ init-host:
 ### Git
 
 .PHONY: update
-update: git-pull init-packages
+update: git-pull init-web-packages
 
 .PHONY: git-pull
 git-pull:
@@ -69,6 +69,7 @@ git-pull:
 git-clone:
 	rm -rf vigisade-*
 	git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git
+	git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git
 
 
 ### Docker

@@ -1,5 +1,10 @@
 # Vigisade
 
+* [Setup](#setup)
+* [About setup issues](#about-setup-issues)
+* [Options](#options)
+
+
 ## Setup
 
 * Clone the repository: `git clone git@gitlab.brocelia.net:sade/vigisade/vigisade.git`
@@ -7,6 +12,14 @@
 * Initializer the web project: `make init-web`;
 
 Then open your sub-project in PhpStorm.
+
+
+## About setup issues
+
+__docker-compose doesn't find the required version.__
+
+Run `sudo pip3 install --upgrade docker-compose` to update your docker-compose.
+
 
 ## Options
 
