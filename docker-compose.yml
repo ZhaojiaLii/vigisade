@@ -12,6 +12,7 @@ services:
       WWW_DOCROOT: $PROJECT_PATH/vigisade-web/public
 
       DATABASE_URL: mysql://$DB_USER:$DB_PWD@db:3306/$DB_NAME
+      AUTH_PASSPHRASE: r2FM3cws
 
     volumes:
       - $USER_HOME/.ssh:/root/.ssh:ro
