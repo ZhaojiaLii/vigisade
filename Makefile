@@ -20,6 +20,7 @@ init-web: clean-all db-wait
 	cd vigisade-web && make packages-init
 	cd vigisade-web && make assets-init
 	cd vigisade-web && make db-init
+	cd vigisade-web && make db-migrate
 
 .PHONY: init-pwa
 init-pwa:
