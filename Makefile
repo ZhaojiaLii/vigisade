@@ -21,6 +21,10 @@ init-web: clean-all db-wait
 	cd vigisade-web && make assets-init
 	cd vigisade-web && make db-init
 
+.PHONY: init-pwa
+init-pwa:
+	cd vigisade-pwa && npm i
+
 .PHONY: db-wait
 db-wait: docker-up
 	.docker/exec.sh -T php dockerize -wait tcp://db:3306 -timeout 60s
