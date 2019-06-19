@@ -10,6 +10,7 @@ services:
     command: nginx -g 'daemon off;'
     volumes:
       - $PROJECT_PATH/.docker/proxy/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - $PROJECT_PATH/.docker/proxy/etc/nginx/crt:/etc/nginx/crt:ro
       - $PROJECT_PATH/.docker/proxy/usr/local/bin/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
       - $PROJECT_PATH/vigisade-pwa/dist:$PROJECT_PATH/vigisade-pwa/dist:ro
     depends_on:

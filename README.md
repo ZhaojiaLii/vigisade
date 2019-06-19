@@ -28,3 +28,8 @@ You should use the following command if you want a DSN: `make init-host`.
 Then you can access [www-dev.vigisade.com](www-dev.vigisade.com).
 
 
+## HTTPS
+
+    . .env
+    echo $IP vigisade.dev.brocelia.net | sudo tee -a /etc/hosts"
+    open https://vigisade.dev.brocelia.net/
