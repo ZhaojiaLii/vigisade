@@ -2,6 +2,19 @@ version: '2.4'
 
 services:
 
+  proxy:
+    image: nginx:1.16-alpine
+    environment:
+      PWA_DOC_ROOT: $PROJECT_PATH/vigisade-pwa/dist
+    entrypoint: /usr/local/bin/entrypoint.sh
+    command: nginx -g 'daemon off;'
+    volumes:
+      - $PROJECT_PATH/.docker/proxy/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - $PROJECT_PATH/.docker/proxy/usr/local/bin/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
+      - $PROJECT_PATH/vigisade-pwa/dist:$PROJECT_PATH/vigisade-pwa/dist:ro
+    depends_on:
+      - php
+  
   # Apache + PHP.
   php:
     image: $IMAGE_WEB_PHP
@@ -16,10 +29,10 @@ services:
 
     volumes:
       - $USER_HOME/.ssh:/root/.ssh:ro
-      - $USER_HOME/.ssh:/var/web/.ssh
-      - $USER_HOME/.ssh:$USER_HOME/.ssh
-      - $USER_HOME/.composer:$USER_HOME/.composer
-      - $PROJECT_PATH/vigisade-web:$PROJECT_PATH/vigisade-web
+      - $USER_HOME/.ssh:/var/web/.ssh:$VOLUME_OPTION
+      - $USER_HOME/.ssh:$USER_HOME/.ssh:$VOLUME_OPTION
+      - $USER_HOME/.composer:$USER_HOME/.composer:$VOLUME_OPTION
+      - $PROJECT_PATH/vigisade-web:$PROJECT_PATH/vigisade-web:$VOLUME_OPTION
     working_dir: $PROJECT_PATH/vigisade-web
 
   # Database.

@@ -33,7 +33,7 @@ if [ -f "/.dockerenv" ]; then
 fi
 
 case "$CONTAINER_NAME" in
-    php)
+    php|*-php)
         CONTAINER_TYPE=ux
         if [ "$SYMFONY_ENV" != '' ]; then
             cmd+=("-e" "SYMFONY_ENV=$SYMFONY_ENV")

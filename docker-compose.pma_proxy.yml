@@ -4,7 +4,6 @@ services:
 
   # phpMyAdmin
   pma:
-    image: phpmyadmin/phpmyadmin
     environment:
       VIRTUAL_HOST: pma-${COMPOSE_PROJECT_NAME}${PROXY_VIRTUAL_HOST_SUFFIX}
       DOCKER_COMPOSE_PATH: $PROJECT_PATH

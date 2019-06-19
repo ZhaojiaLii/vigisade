@@ -2,12 +2,15 @@ version: '2.4'
 
 services:
 
-  php:
+  proxy:
     logging: &logging
       driver: gelf
       options:
         gelf-address: "udp://$GELF_IP:12201"
         tag: ${COMPOSE_PROJECT_NAME}${PROXY_VIRTUAL_HOST_SUFFIX}
+
+  php:
+     logging: *logging
 
   db:
      logging: *logging

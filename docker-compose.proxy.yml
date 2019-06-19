@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   # front web+php
-  php:
+  proxy:
     environment:
       VIRTUAL_HOST: ${COMPOSE_PROJECT_NAME}${PROXY_VIRTUAL_HOST_SUFFIX}
       #HTTPS_METHOD: redirect
