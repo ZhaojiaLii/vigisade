@@ -1,0 +1,28 @@
+version: '2.4'
+
+services:
+  
+  proxy:
+    environment:
+      DEFAULT_PROXY_PASS: http://vigisade.dev.brocelia.net:4200
+    depends_on:
+      - ngserve
+
+  ngserve:
+    image: $IMAGE_PWA_NODE
+    volumes:
+      - $USER_HOME/.ssh:$USER_HOME/.ssh:$VOLUME_OPTION
+      - $USER_HOME/.npm:$USER_HOME/.npm:$VOLUME_OPTION
+      - $USER_HOME/.config:$USER_HOME/.config:$VOLUME_OPTION
+      - $USER_HOME/.cache:$USER_HOME/.cache:$VOLUME_OPTION
+      - $USER_HOME/.local:$USER_HOME/.local:$VOLUME_OPTION
+      - $PROJECT_PATH/vigisade-pwa:$PROJECT_PATH/vigisade-pwa:$VOLUME_OPTION
+    working_dir: $PROJECT_PATH/vigisade-pwa
+    environment:
+      HOME: $USER_HOME
+    user: $USER_ID:$GROUP_ID
+    command: ./node_modules/.bin/ng serve --host vigisade.dev.brocelia.net --port 4200
+    networks:
+      default:
+        aliases:
+            - vigisade.dev.brocelia.net

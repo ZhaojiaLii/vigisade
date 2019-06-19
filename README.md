@@ -33,3 +33,10 @@ Then you can access [www-dev.vigisade.com](www-dev.vigisade.com).
     . .env
     echo $IP vigisade.dev.brocelia.net | sudo tee -a /etc/hosts"
     open https://vigisade.dev.brocelia.net/
+
+
+## dev PWA with ng serve
+
+    make ngserve-on up
+    sleep 10 # time to build
+    open https://vigisade.dev.brocelia.net/
