@@ -157,5 +157,8 @@ mkdir -p \
     .local
 touch \
     .php_history
+cd "$PROJECT_PATH"
+mkdir -p \
+    vigisade-pwa/dist
 
 # vim: ts=4 sts=4 sw=4 et:

@@ -12,7 +12,7 @@ services:
       - $PROJECT_PATH/.docker/proxy/etc/nginx/conf.d:/etc/nginx/conf.d:ro
       - $PROJECT_PATH/.docker/proxy/etc/nginx/crt:/etc/nginx/crt:ro
       - $PROJECT_PATH/.docker/proxy/usr/local/bin/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
-      - $PROJECT_PATH/vigisade-pwa/dist:$PROJECT_PATH/vigisade-pwa/dist:ro
+      - $PROJECT_PATH/vigisade-pwa:$PROJECT_PATH/vigisade-pwa:ro
     depends_on:
       - php
   
