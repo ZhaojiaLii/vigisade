@@ -24,7 +24,8 @@ init-web: clean-all db-wait
 
 .PHONY: init-pwa
 init-pwa:
-	cd vigisade-pwa && npm i && npm run build
+	cd vigisade-pwa && make init-packages
+	cd vigisade-pwa && make build-dev
 
 .PHONY: init-pwa-prod
 init-pwa:
