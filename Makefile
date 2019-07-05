@@ -27,10 +27,6 @@ init-pwa:
 	cd vigisade-pwa && make init-packages
 	cd vigisade-pwa && make build-dev
 
-.PHONY: init-pwa-prod
-init-pwa:
-	cd vigisade-pwa && npm i && npm run build-prod
-
 .PHONY: db-wait
 db-wait: docker-up
 	.docker/exec.sh -T php dockerize -wait tcp://db:3306 -timeout 60s
