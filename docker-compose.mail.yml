@@ -10,7 +10,6 @@ services:
       MAILER_URL: smtp://mail.$MAIL_NETWORK_NAME:25
 
     networks:
-      default:
       mail:
 
 networks:

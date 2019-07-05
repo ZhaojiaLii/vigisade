@@ -35,6 +35,10 @@ services:
       - $USER_HOME/.composer:$USER_HOME/.composer:$VOLUME_OPTION
       - $PROJECT_PATH/vigisade-web:$PROJECT_PATH/vigisade-web:$VOLUME_OPTION
     working_dir: $PROJECT_PATH/vigisade-web
+    networks:
+      default:
+        aliases:
+          - vigisade-web
 
   # Database.
   db:
