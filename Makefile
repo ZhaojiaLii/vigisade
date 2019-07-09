@@ -49,7 +49,7 @@ docker-prepare:
 
 .PHONY: init-host
 init-host:
-	echo 127.0.24.1 www-dev.vigisade.com | sudo tee -a /etc/hosts
+	echo 127.0.24.1 vigisade.dev.brocelia.net | sudo tee -a /etc/hosts
 
 
 ### Git

@@ -23,20 +23,18 @@ Run `sudo pip3 install --upgrade docker-compose` to update your docker-compose.
 
 ## Options
 
+### Host
+
 You should use the following command if you want a DSN: `make init-host`.
 
-Then you can access [www-dev.vigisade.com](www-dev.vigisade.com).
+Then you can access [vigisade.dev.brocelia.net](https://vigisade.dev.brocelia.net).
 
+### Angular
 
-## HTTPS
+You can work with `ng serve` using these commands:
 
-    . .env
-    echo $IP vigisade.dev.brocelia.net | sudo tee -a /etc/hosts"
-    open https://vigisade.dev.brocelia.net/
-
-
-## dev PWA with ng serve
-
-    make ngserve-on up
-    sleep 10 # time to build
-    open https://vigisade.dev.brocelia.net/
+```
+make ngserve-on up
+sleep 10 # time to build
+open https://vigisade.dev.brocelia.net/
+```
