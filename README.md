@@ -9,10 +9,12 @@
 
 * Clone the repository: `git clone git@gitlab.brocelia.net:sade/vigisade/vigisade.git`
 * Initialize the main project: `make init`;
-* Initializer the web project: `make init-web`;
+* Initialize the web project: `make init-web`;
+* Initialize the Angular project: `make init-pwa`;
 
 Then open your sub-project in PhpStorm.
 
+You must run containers each time with `make up`.
 
 ## About setup issues
 
@@ -20,6 +22,14 @@ __docker-compose doesn't find the required version.__
 
 Run `sudo pip3 install --upgrade docker-compose` to update your docker-compose.
 
+## Use PhpMyAdmin
+
+If you want to use PhpMyAdmin for database administration, you must include it:
+
+```
+make pma-on
+make up
+```
 
 ## Options
 
