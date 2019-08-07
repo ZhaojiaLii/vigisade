@@ -28,7 +28,7 @@ init-pwa:
 	cd vigisade-pwa && make build-dev
 
 .PHONY: init-pwa-prod
-init-pwa:
+init-pwa-prod:
 	cd vigisade-pwa && make init-packages
 	cd vigisade-pwa && make build-prod
 
