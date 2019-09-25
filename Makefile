@@ -73,8 +73,8 @@ git-pull:
 .PHONY: git-clone
 git-clone:
 	rm -rf vigisade-*
-	@[ "${BRANCHEWEB}" ] && (echo 'Clone branche $(BRANCHEWEB)'; git clone -b $(BRANCHEWEB) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git) || (echo 'Clone par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git)
-	@[ "${BRANCHEPWA}" ] && (echo 'Clone branche $(BRANCHEPWA)'; git clone -b $(BRANCHEPWA) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git) || (echo 'Clone par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git)
+	@[ "${BRANCHEWEB}" ] && (echo 'Clone WEB branche $(BRANCHEWEB)'; git clone -b $(BRANCHEWEB) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git) || (echo 'Clone WEB par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git)
+	@[ "${BRANCHEPWA}" ] && (echo 'Clone PWA branche $(BRANCHEPWA)'; git clone -b $(BRANCHEPWA) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git) || (echo 'Clone PWA par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git)
 
 ### Docker
 
