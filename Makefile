@@ -62,19 +62,28 @@ init-host:
 .PHONY: update
 update: git-pull init-web-packages
 
+vigisade-%:
+	git clone git@gitlab.brocelia.net:sade/vigisade/$(@F).git
+
+.PHONY: git-clone
+git-clone: vigisade-pwa vigisade-web
+
+.PHONY: git-fetch
+git-fetch:
+	@for project in . vigisade-*; do \
+		echo $$project:; \
+		git -C $$project fetch; \
+		echo; \
+	done
+
 .PHONY: git-pull
 git-pull:
-	@for project in vigisade-*; do \
+	@for project in . vigisade-*; do \
 		echo $$project:; \
 		git -C $$project pull; \
 		echo; \
 	done
 
-.PHONY: git-clone
-git-clone:
-	rm -rf vigisade-*
-	@[ "${BRANCHEWEB}" ] && (echo 'Clone WEB branche $(BRANCHEWEB)'; git clone -b $(BRANCHEWEB) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git) || (echo 'Clone WEB par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-web.git)
-	@[ "${BRANCHEPWA}" ] && (echo 'Clone PWA branche $(BRANCHEPWA)'; git clone -b $(BRANCHEPWA) --single-branch git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git) || (echo 'Clone PWA par défaut master'; git clone git@gitlab.brocelia.net:sade/vigisade/vigisade-pwa.git)
 
 ### Docker
 
